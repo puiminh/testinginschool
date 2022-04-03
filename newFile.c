@@ -23,6 +23,7 @@ int main()
        exit(1);
    }
  
+ //Home:
 
     while(a != EOF){
 
