@@ -1,0 +1,2 @@
+# testinginschool
+run newFile.c
