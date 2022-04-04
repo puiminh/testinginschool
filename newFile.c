@@ -4,7 +4,7 @@
 #include <ctype.h>
 
 
-
+const int MAX = 5000;
  
 char* toLower(char* s) {
   for(char *p=s; *p; p++) *p=tolower(*p);
@@ -32,17 +32,18 @@ int main()
 {
    int n=0,n2=0, a=0, a2=0,i, j;
    FILE *fptr, *fptr2;
-  
    char s[100];
 
-   char list[200][100];
-   char stop[200][100];
-   int count[200];
-   int where[200][100];
-   int unique[200];
+   char list[MAX][100];
+   char stop[MAX][100];
+   int count[MAX];
+   int where[MAX][100];
+   int unique[MAX];
    int bl=0,check,end,start,chudaudoan=1;
    int zzz;
-   for (i=0; i<200; i++){ count[i] = 1;}
+   for (i=0; i<MAX; i++){ 
+        count[i] = 1;
+    }
    if ((fptr = fopen("./vanban.txt","r")) == NULL){
        printf("Error! opening vanban.txt file da bi loi");
  
@@ -61,7 +62,7 @@ int main()
     printf("stop array: \n");
     while(1){
         a2 = fscanf(fptr2,"%s", s);
-        if (a2 == EOF) break;
+        if ((a2 == EOF) || (n2>=MAX)) break;
 	 printf("[%s] number %d\n", s, n2);        
         strcpy (stop[n2],s);
         n2++;
@@ -70,7 +71,7 @@ int main()
     while(1){
 
         a = fscanf(fptr,"%s", s);
-        if (a == EOF) break;
+        if ((a == EOF)||(n>=MAX)) break;
         // printf("%s number %d\n", s, n);
         check=0;
         
@@ -150,24 +151,27 @@ int main()
         printf("%d ", unique[i]);
     }
     printf("\n");
-    for(int i = 0; i < n; i++){
-        for(int j = 0; j< bl; j++)
-            if(unique[j]==i) {
-                    printf("list[%d]: [%s] count=%d", i, list[i], count[i]);
-                    printf(" where: ");
-                    for(int k=0; k<count[i]; k++){
-                        printf("%d, ", where[i][k]);
+
+
+    //Print the original list
+    // for(int i = 0; i < n; i++){
+    //     for(int j = 0; j< bl; j++)
+    //         if(unique[j]==i) {
+    //                 printf("list[%d]: [%s] count=%d", i, list[i], count[i]);
+    //                 printf(" where: ");
+    //                 for(int k=0; k<count[i]; k++){
+    //                     printf("%d, ", where[i][k]);
                         
-                    }
-                    printf("\n");
-                break;
-            } 
+    //                 }
+    //                 printf("\n");
+    //             break;
+    //         } 
             
             
-        }
+    //     }
         
 
-      char list3[200][bl];
+      char list3[MAX][bl];
       for (i=0; i<bl; i++){
       	 strcpy(list3[i],list[unique[i]]);
       }
@@ -187,7 +191,7 @@ int main()
    }
        printf("\n");
        
-    int unique2[200], u2=0;
+    int unique2[MAX], u2=0;
     int khonginnua=0;
     
     printf("\n");
@@ -203,7 +207,7 @@ int main()
     	     {
 	    	     	    if(strcmp(list3[j],list[unique[i]])==0) 
 	    	     	    {
-				    printf("list[%d]: [%s] count=%d", i, list[unique[i]], count[unique[i]]);
+				    printf("[%s] count=%d", list[unique[i]], count[unique[i]]);
 				    printf(" where: ");
 				    for(int k=0; k<count[unique[i]]; k++){
 				        printf("%d, ", where[unique[i]][k]);
